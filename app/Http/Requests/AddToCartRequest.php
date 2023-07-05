@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateTask extends FormRequest
+class AddToCartRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,8 @@ class CreateTask extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'deadline' => 'required',
-            'description' => 'required',
-            'user_id' => 'required',
-            'status' => 'required'
+            'product_id' => 'required',
+            'count' => 'required',
         ];
     }
 }
-

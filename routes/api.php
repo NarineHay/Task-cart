@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Api\FilteringTasksByAssignedUserController;
+use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\GetUsersController;
-use App\Http\Controllers\Api\TasksController;
-use App\Http\Controllers\Api\TasksHistoriesController;
+use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,20 +19,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResources([
-    'users' => GetUsersController::class,
-    'task' => TasksController::class,
-    'task/create' => TasksController::class,
-    'task/{id}/show' => TasksController::class,
-    'task/{id}/destroy' => TasksController::class,
-    // 'task-histories' => TasksHistoriesController::class
-]);
-Route::post('task/{id}',[TasksController::class ,'update' ]);
-Route::get('task-histories',[TasksHistoriesController::class , 'index']);
-Route::get('filter-tasks-by-assigned-user/{user_id}',[FilteringTasksByAssignedUserController::class , 'index']);
+Route::group(['middleware' => ['auth:api' ]], function () {
+
+    Route::apiResources([
+        'users' => GetUsersController::class,
+        'product' => ProductController::class,
+        'category' => CategoryController::class,
+
+    ]);
+
+    Route::post('add-to-cart', [CartController::class, 'add_to_cart']);
+    Route::post('delete-product-from-cart', [CartController::class, 'delete_product_from_cart']);
+
+
+});
+
+Route::post('login', [LoginController::class, 'login']);
 
 

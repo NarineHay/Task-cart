@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Users\RoleController;
 use App\Http\Controllers\Admin\Users\UserController;
+use App\Services\FileUploadService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,3 +28,4 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
 });
+Route::get('get-file', [FileUploadService::class, 'get_file'])->name('get-file');

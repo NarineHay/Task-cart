@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CreateTask extends JsonResource
+class ProductResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,11 @@ class CreateTask extends JsonResource
     {
         return [
             'name' => $this->name,
-            'deadline' => $this->deadline,
+            'price' => $this->price,
             'description' => $this->description,
-            'user_id' => $this->user_id,
-            'status' => $this->status,
+            'available' => $this->available,
+            'image_path' => route('get-file', ['path'=>$this->image_path]),
+
         ];
     }
 }

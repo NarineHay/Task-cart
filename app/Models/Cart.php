@@ -5,22 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class Cart extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'name',
-        'deadline',
-        'description',
         'user_id',
-        'status'
+        'product_id',
+        'count',
+        'total_price'
     ];
 
-    public function task_histories(){
-        return $this->hasMany(TaskHistory::class);
-    }
-
-    public function users(){
+    public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
 }
+
